@@ -20,7 +20,27 @@ def csv_data_read(filename):
 	url=filename+".CSV"
 	data_csv_frame = pd.read_csv(url);
 	data_csv_frame.drop(['TDCLOINDI','NET_TURNOV','NO_OF_SHRS','NO_TRADES','PREVCLOSE','SC_GROUP','SC_TYPE','LAST'], axis = 1, inplace = True)
-	print(data_csv_frame);
+	#print(data_csv_frame);
+	data_csv_frame['CHANGE_PER'] = ((data_csv_frame.CLOSE - data_csv_frame.OPEN)/data_csv_frame.OPEN)*100;
+	print("\nTop 10 Profit Stocks are :")
+	print data_csv_frame.nlargest(10, 'CHANGE_PER');
+	print("\nTop 10 Loss Stocks are :")
+	print data_csv_frame.nsmallest(10, 'CHANGE_PER')
+	# print(data_csv_frame);
+	# print (data_csv_frame.loc[data_csv_frame['CHANGE_PER'].idxmax()])
+	# print (data_csv_frame.iloc[data_csv_frame['CHANGE_PER'].idxmax()])
+	# print (data_csv_frame['CHANGE_PER'].max(10))
+	#change=[];
+	# for row in data_csv_frame['OPEN','CLOSE']:
+	# 	print(row)
+		#change.append()
+
+	#find_stock_info(data_csv_frame);
+
+def find_stock_info(data_csv_frame):
+	ifsc_code=raw_input("Enter 11 digit IFSC Code: ");
+
+
 
 def file_date_avail(newday):
 	# print(str(newday.year).zfill(2));
@@ -50,3 +70,4 @@ def main():
 
 if __name__== "__main__":
   main();
+
